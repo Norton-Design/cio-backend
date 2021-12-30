@@ -1,5 +1,6 @@
 import json
 import time
+from datetime import datetime
 
 class DataStore:
     def __init__(self):
@@ -47,7 +48,7 @@ class DataStore:
 
     def update_user_attributes(self, user_data):
         user_id = int(user_data['user_id'])
-        message_timestamp = user_data['timestamp']
+        message_timestamp = int(user_data['timestamp'])
         data = user_data['data']
         
         if user_id in self.users:

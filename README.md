@@ -22,3 +22,6 @@ Thoughts:
     8. Why would a customer create request already contain a user_id, that makes no sense at all. To be consistant, I have to keep it(?) but at no point should we need to return an available user_id up to the frontend just to pass it back again. 
     9. Man, it would be a terrible time to find out that Users and Customers are different in this project (they definitely are in the real thing, this project looks like an amalgamation).
     10. events key on new customer response? I'll do it, but feels unnecessary.
+
+# Testing the Frontend and Backend together
+    Bug #1: Forgot that JS timestamps are accurate to the millisecond, creating a problem hydra... 

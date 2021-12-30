@@ -3,7 +3,6 @@ from datastore import DataStore
 from flask import jsonify
 from flask import request
 from werkzeug.http import HTTP_STATUS_CODES
-from datastore import DataStore
 import time
 
 store = DataStore()
