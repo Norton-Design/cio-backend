@@ -7,7 +7,16 @@ Run this app:
     4. run "python3 -m venv venv"
     5. run "source venv/bin/activate"
     6. run "pip install -r requirements.txt"
-    7. adjust the path to the messages.data as needed <--- Check this later
+    7. create .env file in root directory and set the path for the .data file: 
+    '''
+    DATA_PATH=<path_string_to_data_file>
+    '''
+
+
+    The following is what mine looked like:
+    '''
+    DATA_PATH="./datastore/data/messages.1.data"
+    '''
     8. run "flask run"
 
 Thoughts:

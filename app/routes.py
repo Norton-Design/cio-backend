@@ -1,7 +1,6 @@
 from app import app
 from datastore import DataStore
-from flask import jsonify
-from flask import request
+from flask import jsonify, request
 from werkzeug.http import HTTP_STATUS_CODES
 import time
 
@@ -9,8 +8,10 @@ store = DataStore()
 
 @app.route('/customers', methods=['GET'])
 def get_customers():
-    page = request.args.get('page', 1, type=int)
-    per_page = request.args.get('per_page', 25, type=int)
+    page = int(request.args.get('page'))
+    per_page = int(request.args.get('per_page'))
+    print(page)
+    print(per_page)
     customers = store.paginated_collection(page, per_page)
     total = store.get_user_total()
     if customers:

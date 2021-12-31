@@ -1,6 +1,9 @@
 import json
 import time
+import os
 from datetime import datetime
+
+DATA_PATH = os.getenv('DATA_PATH')
 
 class DataStore:
     def __init__(self):
@@ -12,7 +15,7 @@ class DataStore:
         self.set_next_available_user_id()
 
     def create_datastore(self):
-        with open('./datastore/data/messages.1.data', 'r') as f:
+        with open(DATA_PATH, 'r') as f:
             lines = f.readlines()
             for line in lines:
                 parsed_line = json.loads(line)
@@ -26,7 +29,6 @@ class DataStore:
             self.add_event(event_message)
 
     def add_event(self, event_message):
-        # This is an ugly function...
         user_id = int(event_message['user_id'])
         event_id = event_message['id']
         event_name = event_message['name']
@@ -57,7 +59,9 @@ class DataStore:
             curr_timestamp = curr_user['last_updated']
             curr_attrs = curr_user['attributes']
             for key, value in data.items():
-                if key in curr_attrs:
+                if key in curr_attrs and value == "**DELETE_ATTRIBUTE**":
+                    del curr_attrs[key]
+                elif key in curr_attrs:
                     # check and update
                     potential_attr_pair = (value, message_timestamp)
                     curr_attrs[key] = self.most_recent_attribute(curr_attrs[key], potential_attr_pair)
