@@ -1,7 +1,6 @@
 import json
 import time
 import os
-from datetime import datetime
 
 DATA_PATH = os.getenv('DATA_PATH')
 
@@ -18,12 +17,15 @@ class DataStore:
         with open(DATA_PATH, 'r') as f:
             lines = f.readlines()
             for line in lines:
-                parsed_line = json.loads(line)
-                if parsed_line['type'] == 'event':
-                    self.screen_pathological_events(parsed_line)
-                elif parsed_line['type'] == 'attributes':
-                    self.update_user_attributes(parsed_line)
-    
+                self.process_line(line)
+
+    def process_line(self, line):
+        parsed_line = json.loads(line)
+        if parsed_line['type'] == 'event':
+            self.screen_pathological_events(parsed_line)
+        elif parsed_line['type'] == 'attributes':
+            self.update_user_attributes(parsed_line)        
+
     def screen_pathological_events(self, event_message):
         if 'user_id' in event_message:
             self.add_event(event_message)
@@ -54,7 +56,6 @@ class DataStore:
         data = user_data['data']
         
         if user_id in self.users:
-            # check data and modify
             curr_user = self.users[user_id]
             curr_timestamp = curr_user['last_updated']
             curr_attrs = curr_user['attributes']
@@ -62,7 +63,6 @@ class DataStore:
                 if key in curr_attrs and value == "**DELETE_ATTRIBUTE**":
                     del curr_attrs[key]
                 elif key in curr_attrs:
-                    # check and update
                     potential_attr_pair = (value, message_timestamp)
                     curr_attrs[key] = self.most_recent_attribute(curr_attrs[key], potential_attr_pair)
                 else:

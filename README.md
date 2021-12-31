@@ -1,5 +1,5 @@
 
-Run this app:
+# Run this app:
 
     1. clone repo
     2. install python3
@@ -19,7 +19,7 @@ Run this app:
     '''
     8. run "flask run"
 
-Thoughts:
+# Thoughts:
     1. after generating data and parsing it, noticed that one of the events has "user_id". 
     Is this consistant with what we should expect with input, a mistake. I'll have to figure out later...
     2. Add event in data_store feels messy, need to refactor it later
